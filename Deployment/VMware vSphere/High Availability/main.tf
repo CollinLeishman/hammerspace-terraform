@@ -132,7 +132,7 @@ resource "vsphere_virtual_machine" "anvil1_vm" {
         "password": "${var.admin-password}"
       },
       "nodes": {
-        0: {
+        "0": {
             "hostname": ${var.HA-anvil1-hostname},
             "features": ["metadata"],
             "ha_mode": "Secondary",
@@ -149,11 +149,14 @@ resource "vsphere_virtual_machine" "anvil1_vm" {
                 },
                 "ens224": {
                     "roles": ["ha"],
+                    "ips": ["${var.HA_anvil1-interconnect-address}/${var.interconnect-netmask}"],
+                    "mtu": var.interconnect-mtu,
+                    "autoconf": false,
                     "dhcp": false
                 }
             }
         },
-        1: {
+        "1": {
             "hostname": ${var.HA-anvil2-hostname},
             "features": ["metadata"],
             "ha_mode": "Primary",
@@ -170,6 +173,9 @@ resource "vsphere_virtual_machine" "anvil1_vm" {
                 },
                 "ens224": {
                     "roles": ["ha"],
+                    "ips": ["${var.HA_anvil2-interconnect-address}/${var.interconnect-netmask}"],
+                    "mtu": ${var.interconnect-mtu},
+                    "autoconf": false,
                     "dhcp": false
                 }
             }
@@ -241,7 +247,7 @@ resource "vsphere_virtual_machine" "anvil2_vm" {
         "password": "${var.admin-password}"
       },
       "nodes": {
-        0: {
+        "0": {
             "hostname": ${var.HA-anvil1-hostname},
             "features": ["metadata"],
             "ha_mode": "Secondary",
@@ -258,11 +264,14 @@ resource "vsphere_virtual_machine" "anvil2_vm" {
                 },
                 "ens224": {
                     "roles": ["ha"],
+                    "ips": ["${var.HA_anvil1-interconnect-address}/${var.interconnect-netmask}"],
+                    "mtu": ${var.interconnect-mtu},
+                    "autoconf": false,
                     "dhcp": false
                 }
             }
         },
-        1: {
+        "1": {
             "hostname": ${var.HA-anvil2-hostname},
             "features": ["metadata"],
             "ha_mode": "Primary",
@@ -279,6 +288,9 @@ resource "vsphere_virtual_machine" "anvil2_vm" {
                 },
                 "ens224": {
                     "roles": ["ha"],
+                    "ips": ["${var.HA_anvil2-interconnect-address}/${var.interconnect-netmask}"],
+                    "mtu": ${var.interconnect-mtu},
+                    "autoconf": false,
                     "dhcp": false
                 }
             }

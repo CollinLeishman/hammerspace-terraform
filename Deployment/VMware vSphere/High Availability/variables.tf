@@ -149,10 +149,31 @@ variable "HA-anvil-metadatadisk" {
   default = 300
 }
 
+# General networking settings
+variable "HA-anvil-interconnect-network" {
+  type = string
+  description = "Interconnect network for Anvil"
+}
+
+variable "HA-anvil-interconnect-netmask" {
+  type = string
+  description = "Interconnect netmask for Anvil"
+}
+
+variable "HA-anvil-interconnect-mtu" {
+  type = number
+  description = "MTU for interconnect network"
+}
+
 # Anvil 1 settings
 variable "HA_anvil1-ip" {
   type = string
   description = "IP/NETMASK, e.g. 192.168.1.1/22"
+}
+
+variable "HA_anvil1-interconnect-address" {
+    type = string
+    description = "Interconnect address for Anvil 1"
 }
 
 variable "HA-anvil1-hostname" {
@@ -165,6 +186,11 @@ variable "HA-anvil1-hostname" {
 variable "HA_anvil2-ip" {
   type = string
   description = "IP/NETMASK, e.g. 192.168.1.2/22"
+}
+
+variable "HA_anvil2-interconnect-address" {
+    type = string
+    description = "Interconnect address for Anvil 2"
 }
 
 variable "HA-anvil2-hostname" {
